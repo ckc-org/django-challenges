@@ -46,3 +46,6 @@ class UserViewSet(
     permission_classes = []
     queryset = User.objects.all()
     serializer_class = UserSerializer
+
+    def get_queryset(self):
+        return super().get_queryset().prefetch_related('companies__addresses')

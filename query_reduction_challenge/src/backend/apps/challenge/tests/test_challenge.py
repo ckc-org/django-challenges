@@ -18,7 +18,7 @@ def generate_random_string(length):
 class ChallengeTests(CkcAPITestCase):
     def test_users_endpoint_has_reasonable_query_count(self):
 
-        for quantity in [100, 1000]:
+        for quantity in [10, 100]:
             for _ in range(quantity):
                 company = Company.objects.create(name=generate_random_string(15))
                 company.addresses.set([Address.objects.create(street_addr=generate_random_string(15)) for __ in range(quantity)])
