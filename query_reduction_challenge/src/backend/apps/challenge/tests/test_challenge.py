@@ -18,7 +18,10 @@ def generate_random_string(length):
 class ChallengeTests(CkcAPITestCase):
     def test_users_endpoint_has_reasonable_query_count(self):
 
-        for quantity in [100, 1000]:
+        for quantity in [10, 100]:
+            User.objects.all().delete()
+            Company.objects.all().delete()
+            Address.objects.all().delete()
             for _ in range(quantity):
                 company = Company.objects.create(name=generate_random_string(15))
                 company.addresses.set([Address.objects.create(street_addr=generate_random_string(15)) for __ in range(quantity)])
@@ -29,3 +32,10 @@ class ChallengeTests(CkcAPITestCase):
 
             with self.assertNumQueries(3):
                 resp = self.client.get(reverse('user-list'))
+                data = resp.json()
+                for user in data:
+                    assert len(user['companies']) == quantity // 10
+                    company = random.choice(user['companies'])
+                    assert len(company['addresses']) == quantity
+
+
