@@ -49,7 +49,6 @@ class UserViewSet(
 
     def list(self, request):
         qs = User.objects.all().prefetch_related(
-            'companies',
             'companies__addresses',
         )
         serializer = self.get_serializer(qs, many=True)
