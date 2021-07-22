@@ -42,7 +42,7 @@ jobs:
     - name: Test with pytest
       run: |
         # make some dummy files so tests run fine
-        sudo mkdir -p frontend/generated/static
+        sudo mkdir -p /frontend/generated/static
         cd $CHALLENGE_DIR/src/backend
         ./manage.py collectstatic --noinput
         pytest --cov-fail-under=100
