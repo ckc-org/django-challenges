@@ -9,4 +9,3 @@ deploy:
 
 test:
 	docker-compose exec django py.test
-	docker-compose exec builder yarn test
