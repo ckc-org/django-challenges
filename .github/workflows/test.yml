@@ -39,7 +39,7 @@ jobs:
     - name: Install dependencies
       run: |
         echo "new github env: $GITHUB_ENV"
-        cat $GITHUB_ENV
+        printenv
         # libldap2-dev and libsasl2-dev are for ldap
         DIR=query_reduction_challenge
         sudo apt-get update
