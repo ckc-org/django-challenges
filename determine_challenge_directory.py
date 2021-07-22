@@ -16,7 +16,7 @@ for line in sys.stdin:
     if directory not in BLACKLIST_DIRS:
         directories[directory] += 1
 
-maxdir = None
+max_dir = None
 max_frequency = 0
 for dir in directories:
     if directories[dir] > max_frequency:
