@@ -54,7 +54,7 @@ jobs:
         echo "DIR: $DIR"
         ls -la
         # make some dummy files so tests run fine
-        sudo mkdir -p $DIR/frontend/generated/static
+        sudo mkdir -p frontend/generated/static
         cd $DIR/src/backend
         ./manage.py collectstatic --noinput
         pytest --cov-fail-under=100
