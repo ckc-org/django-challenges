@@ -19,8 +19,14 @@ jobs:
       run: |
         git branch --show-current
         git show-ref
-        git diff refs/remotes/origin/master HEAD --name-only | python determine_challenge_directory.py
         git diff refs/remotes/origin/master HEAD --name-only
+        $CHALLENGE_DIR=git diff refs/remotes/origin/master HEAD --name-only | python determine_challenge_directory.py
+        echo "CHALLENGE_DIR: $CHALLENGE_DIR"
+        echo "github env: $GITHUB_ENV"
+        cat $GITHUB_ENV
+        echo $CHALLENGE_DIR >> $GITHUB_ENV
+        echo "new github env: $GITHUB_ENV"
+        cat $GITHUB_ENV
     - name: Cache pip
       uses: actions/cache@v1
       with:
@@ -32,6 +38,8 @@ jobs:
           ${{ runner.os }}-
     - name: Install dependencies
       run: |
+        echo "new github env: $GITHUB_ENV"
+        cat $GITHUB_ENV
         # libldap2-dev and libsasl2-dev are for ldap
         DIR=query_reduction_challenge
         sudo apt-get update
