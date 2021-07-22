@@ -40,9 +40,9 @@ jobs:
         git diff refs/remotes/origin/master HEAD --name-only | grep -v .github | grep ".*/" | cut -d "/" -f 1 | uniq -c
         git diff refs/remotes/origin/master HEAD --name-only | grep -v .github | grep ".*/" | cut -d "/" -f 1 | uniq -c | sort -nr
         git diff refs/remotes/origin/master HEAD --name-only | grep -v .github | grep ".*/" | cut -d "/" -f 1 | uniq -c | sort -nr | sed "s/^[ \t]*//" 
-        git diff refs/remotes/origin/master HEAD --name-only | grep -v .github | grep ".*/" | cut -d "/" -f 1 | uniq -c | sort -nr | sed "s/^[ \t]*//" | cut -d " " -f 5
-        git diff refs/remotes/origin/master HEAD --name-only | grep -v .github | grep ".*/" | cut -d "/" -f 1 | uniq -c | sort -nr | sed "s/^[ \t]*//" | cut -d " " -f 5 | head -n 1
-        CHALLENGE_DIR=`git diff refs/remotes/origin/master HEAD --name-only | grep -v .github | grep ".*/" | cut -d "/" -f 1 | uniq -c | sort -nr | sed "s/^[ \t]*//" | cut -d " " -f 5 | head -n 1`
+        git diff refs/remotes/origin/master HEAD --name-only | grep -v .github | grep ".*/" | cut -d "/" -f 1 | uniq -c | sort -nr | sed "s/^[ \t]*//" | cut -d " " -f 2 
+        git diff refs/remotes/origin/master HEAD --name-only | grep -v .github | grep ".*/" | cut -d "/" -f 1 | uniq -c | sort -nr | sed "s/^[ \t]*//" | cut -d " " -f 2 | head -n 1
+        CHALLENGE_DIR=`git diff refs/remotes/origin/master HEAD --name-only | grep -v .github | grep ".*/" | cut -d "/" -f 1 | uniq -c | sort -nr | sed "s/^[ \t]*//" | cut -d " " -f 2 | head -n 1`
         if [ -z "$CHALLENGE_DIR" ]; then echo "CHALLENGE_DIR variable not set." && exit 1; fi
         echo "CHALLENGE_DIR: $CHALLENGE_DIR"
         echo "CHALLENGE_DIR=$CHALLENGE_DIR" >> $GITHUB_ENV
