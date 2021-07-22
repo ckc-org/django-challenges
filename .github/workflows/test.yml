@@ -19,7 +19,7 @@ jobs:
       run: |
         git branch --show-current
         git show-ref
-        git diff master HEAD --name-only
+        git diff refs/remotes/origin/master HEAD --name-only
     - name: Cache pip
       uses: actions/cache@v1
       with:
