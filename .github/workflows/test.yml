@@ -37,12 +37,15 @@ jobs:
         if [ -z "$CHALLENGE_DIR" ]; then echo "CHALLENGE_DIR variable not set." && exit 1; fi
         echo "CHALLENGE_DIR: $CHALLENGE_DIR"
         echo "CHALLENGE_DIR=$CHALLENGE_DIR" >> $GITHUB_ENV
+        echo "${{ env.CHALLENGE_DIR }}"
+        echo "${{ env.CHALLENGE_DIR + '/requirements.*txt' }}"
+        echo "${{ hashFiles(env.CHALLENGE_DIR + '/requirements.*txt') }}"
     - name: Cache pip
       uses: actions/cache@v1
       with:
         path: ~/.cache/pip
         # Look to see if there is a cache hit for the corresponding requirements file
-        key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
+        key: ${{ runner.os }}-pip-${{ hashFiles(env.CHALLENGE_DIR + '/requirements.*txt') }}
         restore-keys: |
           ${{ runner.os }}-pip-
           ${{ runner.os }}-
