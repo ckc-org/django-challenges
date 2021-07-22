@@ -51,9 +51,6 @@ jobs:
           ${{ runner.os }}-
     - name: Install dependencies
       run: |
-        echo "${{ env.CHALLENGE_DIR }}"
-        echo "${{ format('{0}{1}', env.CHALLENGE_DIR, '/requirements.*txt') }}"
-        echo "${{ hashFiles(format('{0}{1}', env.CHALLENGE_DIR, '/requirements.*txt')) }}"
         # libldap2-dev and libsasl2-dev are for ldap
         sudo apt-get update
         sudo apt-get install libldap2-dev libsasl2-dev
