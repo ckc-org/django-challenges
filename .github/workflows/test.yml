@@ -13,6 +13,10 @@ jobs:
       uses: actions/setup-python@v1
       with:
         python-version: 3.9
+    - name: Detect Challenge Directory
+      run: |
+        git branch --show-current
+        git diff master HEAD --name-only
     - name: Cache pip
       uses: actions/cache@v1
       with:
@@ -38,8 +42,7 @@ jobs:
         echo "DIR: $DIR"
         ls -la
         # make some dummy files so tests run fine
-        touch $DIR/src/backend/templates/index.html
         sudo mkdir -p $DIR/frontend/generated/static
-        cd $DIR/esrc/backend
+        cd $DIR/src/backend
         ./manage.py collectstatic --noinput
         pytest --cov-fail-under=100
