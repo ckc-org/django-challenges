@@ -55,6 +55,8 @@ jobs:
       run: |
         cd $CHALLENGE_DIR/src/backend && flake8
     - name: Test with pytest
+      env:
+        DB_HOST: localhost
       run: |
         # make some dummy files so tests run fine
         sudo mkdir -p /frontend/generated/static
