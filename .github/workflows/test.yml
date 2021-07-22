@@ -63,4 +63,4 @@ jobs:
         sudo mkdir -p /frontend/generated/static
         cd $CHALLENGE_DIR/src/backend
         ./manage.py collectstatic --noinput
-        pytest --cov-fail-under=100
+        pytest
