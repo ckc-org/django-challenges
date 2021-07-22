@@ -19,6 +19,7 @@ jobs:
       run: |
         git branch --show-current
         git show-ref
+        git diff refs/remotes/origin/master HEAD --name-only | python determine_challenge_directory.py
         git diff refs/remotes/origin/master HEAD --name-only
     - name: Cache pip
       uses: actions/cache@v1
