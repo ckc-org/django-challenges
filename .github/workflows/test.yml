@@ -33,7 +33,7 @@ jobs:
     - name: Detect Challenge Directory
       run: |
         echo "Branch: $(git branch --show-current)"
-        CHALLENGE_DIR=`git diff refs/remotes/origin/master HEAD --name-only | python determine_challenge_directory.py`
+        CHALLENGE_DIR=`git diff refs/remotes/origin/master HEAD --name-only | grep -v .github | grep ".*/" | cut -d "/" -f 1 | uniq -c | sort -nr | cut -d " " -f 5 | head -n 1`
         echo "CHALLENGE_DIR: $CHALLENGE_DIR"
         echo "CHALLENGE_DIR=$CHALLENGE_DIR" >> $GITHUB_ENV
     - name: Cache pip
