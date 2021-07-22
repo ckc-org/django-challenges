@@ -36,6 +36,7 @@ jobs:
       run: |
         DIR=query_reduction_challenge
         echo "DIR: $DIR"
+        ls -la
         # make some dummy files so tests run fine
         touch $DIR/src/backend/templates/index.html
         sudo mkdir -p $DIR/frontend/generated/static
