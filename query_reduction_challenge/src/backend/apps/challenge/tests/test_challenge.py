@@ -37,5 +37,3 @@ class ChallengeTests(CkcAPITestCase):
                     assert len(user['companies']) == quantity // 10
                     company = random.choice(user['companies'])
                     assert len(company['addresses']) == quantity
-
-
