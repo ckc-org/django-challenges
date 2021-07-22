@@ -33,6 +33,14 @@ jobs:
     - name: Detect Challenge Directory
       run: |
         echo "Branch: $(git branch --show-current)"
+        git diff refs/remotes/origin/master HEAD --name-only
+        git diff refs/remotes/origin/master HEAD --name-only | grep -v .github
+        git diff refs/remotes/origin/master HEAD --name-only | grep -v .github | grep ".*/"
+        git diff refs/remotes/origin/master HEAD --name-only | grep -v .github | grep ".*/" | cut -d "/" -f 1
+        git diff refs/remotes/origin/master HEAD --name-only | grep -v .github | grep ".*/" | cut -d "/" -f 1 | uniq -c
+        git diff refs/remotes/origin/master HEAD --name-only | grep -v .github | grep ".*/" | cut -d "/" -f 1 | uniq -c | sort -nr
+        git diff refs/remotes/origin/master HEAD --name-only | grep -v .github | grep ".*/" | cut -d "/" -f 1 | uniq -c | sort -nr | cut -d " " -f 5
+        git diff refs/remotes/origin/master HEAD --name-only | grep -v .github | grep ".*/" | cut -d "/" -f 1 | uniq -c | sort -nr | cut -d " " -f 5 | head -n 1
         CHALLENGE_DIR=`git diff refs/remotes/origin/master HEAD --name-only | grep -v .github | grep ".*/" | cut -d "/" -f 1 | uniq -c | sort -nr | cut -d " " -f 5 | head -n 1`
         if [ -z "$CHALLENGE_DIR" ]; then echo "CHALLENGE_DIR variable not set." && exit 1; fi
         echo "CHALLENGE_DIR: $CHALLENGE_DIR"
