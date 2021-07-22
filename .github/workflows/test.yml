@@ -17,16 +17,10 @@ jobs:
         python-version: 3.9
     - name: Detect Challenge Directory
       run: |
-        git branch --show-current
-        git show-ref
-        git diff refs/remotes/origin/master HEAD --name-only
+        echo "Branch: $(git branch --show-current)"
         CHALLENGE_DIR=`git diff refs/remotes/origin/master HEAD --name-only | python determine_challenge_directory.py`
         echo "CHALLENGE_DIR: $CHALLENGE_DIR"
-        echo "github env: $GITHUB_ENV"
-        printenv
         echo "CHALLENGE_DIR=$CHALLENGE_DIR" >> $GITHUB_ENV
-        echo "new github env: $GITHUB_ENV"
-        printenv
     - name: Cache pip
       uses: actions/cache@v1
       with:
@@ -38,23 +32,17 @@ jobs:
           ${{ runner.os }}-
     - name: Install dependencies
       run: |
-        echo "new github env: $GITHUB_ENV"
-        printenv
         # libldap2-dev and libsasl2-dev are for ldap
-        DIR=query_reduction_challenge
         sudo apt-get update
         sudo apt-get install libldap2-dev libsasl2-dev
-        pip install -r $DIR/requirements.dev.txt
+        pip install -r $CHALLENGE_DIR/requirements.dev.txt
     - name: Lint with flake8
       run: |
-        cd query_reduction_challenge/src/backend && flake8
+        cd $CHALLENGE_DIR/src/backend && flake8
     - name: Test with pytest
       run: |
-        DIR=query_reduction_challenge
-        echo "DIR: $DIR"
-        ls -la
         # make some dummy files so tests run fine
         sudo mkdir -p frontend/generated/static
-        cd $DIR/src/backend
+        cd $CHALLENGE_DIR/src/backend
         ./manage.py collectstatic --noinput
         pytest --cov-fail-under=100
