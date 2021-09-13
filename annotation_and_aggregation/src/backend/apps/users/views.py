@@ -49,5 +49,5 @@ class UserViewSet(
     serializer_class = UserSerializer
 
     def get_queryset(self):
-        qs = super.get_queryset()
+        qs = super().get_queryset()
         return qs.annotate(net_worth=qs.aggregate(Sum('company__assets_value') - Sum('company__assets_value')))
