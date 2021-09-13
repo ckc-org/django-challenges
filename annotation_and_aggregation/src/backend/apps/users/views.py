@@ -1,5 +1,5 @@
 from django.contrib.auth import authenticate, login, get_user_model
-from django.db.models import Sum, F
+from django.db.models import Sum, F, Count
 from rest_framework import views, status, mixins
 from rest_framework.exceptions import ValidationError
 from rest_framework.permissions import AllowAny
@@ -45,5 +45,5 @@ class UserViewSet(
     GenericViewSet,
 ):
     permission_classes = []
-    queryset = User.objects.all()
+    queryset = User.objects.all().annotate(net_worth=(Sum('companies__assets_value')-Sum('companies__liabilities_value')))
     serializer_class = UserSerializer
