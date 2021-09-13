@@ -1,5 +1,5 @@
 from django.contrib.auth import authenticate, login, get_user_model
-from django.db.models import Sum, F
+from django.db.models import Sum
 from rest_framework import views, status, mixins
 from rest_framework.exceptions import ValidationError
 from rest_framework.permissions import AllowAny
@@ -49,6 +49,5 @@ class UserViewSet(
     serializer_class = UserSerializer
 
     def get_queryset(self):
-        from django.db.models import Sum
         qs = super.get_queryset()
         return qs.annotate(net_worth=qs.aggregate(Sum('company__assets_value') - Sum('company__assets_value')))

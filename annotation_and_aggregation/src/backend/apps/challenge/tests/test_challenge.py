@@ -23,7 +23,7 @@ class ChallengeTests(CkcAPITestCase):
             User.objects.all().delete()
             Company.objects.all().delete()
             for _ in range(quantity * 3):
-                company = Company.objects.create(
+                Company.objects.create(
                     name=generate_random_string(15),
                     assets_value=Decimal(round(random.random() * (10 ** 7), 2)),
                     liabilities_value=Decimal(round(random.random() * (10 ** 7) * 0.5, 2)),
