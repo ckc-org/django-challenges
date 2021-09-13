@@ -54,9 +54,5 @@ class UserSerializer(serializers.ModelSerializer):
             'net_worth',
         )
 
-    # def get_net_worth(self, user):
-    #     net_worth = 0
-    #     for company in user.companies.all():
-    #         net_worth += company.assets_value
-    #         net_worth -= company.liabilities_value
-    #     return net_worth
+    def get_net_worth(self, user):
+        return user.net_worth

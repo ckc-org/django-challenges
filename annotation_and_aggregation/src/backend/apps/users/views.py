@@ -51,4 +51,4 @@ class UserViewSet(
     def get_queryset(self):
         qs = super().get_queryset()
         # net_worth = qs.aggregate(Sum('company__assets_value') - Sum('company__assets_value'))
-        return qs.annotate(net_worth=Sum('company__assets_value') - Sum('company__assets_value'))
+        return qs.annotate(net_worth=Sum('companies__assets_value') - Sum('companies__liabilities_value'))
